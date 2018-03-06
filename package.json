@@ -1,0 +1,29 @@
+{
+  "name": "trade-calendar",
+  "version": "1.0.1",
+  "description": "calendar for stock trade",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wenjunxiao/trade-calendar.git"
+  },
+  "keywords": [
+    "calendar",
+    "stock",
+    "trade"
+  ],
+  "author": "Wenjun Xiao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wenjunxiao/trade-calendar/issues"
+  },
+  "homepage": "https://github.com/wenjunxiao/trade-calendar#readme",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "lodash": "^4.17.5",
+    "moment": "^2.20.1"
+  }
+}
