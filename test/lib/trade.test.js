@@ -237,4 +237,23 @@ describe('TradeCalendar', function () {
       });
     });
   });
+
+  it('setTimeout', (done) => {
+    let st = Date.now();
+    us.setTimeout(() => {
+      let cost = Date.now() - st;
+      (cost > 450 && cost < 550).should.be.ok();
+      done();
+    }, 500);
+  });
+
+  it('setTimeoutAt', (done) => {
+    let st = Date.now();
+    let time = us.moment().add(500, 'milliseconds').valueOf();
+    us.setTimeoutAt(() => {
+      let cost = Date.now() - st;
+      (cost > 450 && cost < 550).should.be.ok();
+      done();
+    }, time);
+  });
 });

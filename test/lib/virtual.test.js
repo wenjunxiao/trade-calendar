@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const Calendar = require('../../lib/virtual');
 const moment = require('moment-timezone');
 
@@ -245,7 +246,7 @@ describe('VirtualCalendar', function () {
     let calendar;
     before(() => {
       let m = moment();
-      calendar = new Calendar(Object.assign({}, config, {
+      calendar = new Calendar(_.merge({}, config, {
         timezoneName: 'Asia/Shanghai',
         startTime: m.valueOf(),
         virtual: {
@@ -313,6 +314,61 @@ describe('VirtualCalendar', function () {
           dayStart: 1501516800000,
           dayEnd: 1501603199999
         });
+      });
+    });
+  });
+
+  describe('时间压缩', () => {
+    let us;
+    before(function () {
+      us = new Calendar(Object.assign({}, config, {
+        timezoneName: 'America/New_York',
+        virtual: {
+          oneDay: 12 * 60 * 60 * 1000
+        }
+      }));
+    });
+    it('setTimeout', (done) => {
+      let st = Date.now();
+      us.setTimeout(() => {
+        let cost = Date.now() - st;
+        (cost > 200 && cost < 300).should.be.ok();
+        done();
+      }, 500);
+    });
+
+    describe('#setTimeoutAt()', () => {
+      it('calendar time', (done) => {
+        const us = new Calendar(Object.assign({}, config, {
+          timezoneName: 'America/New_York',
+          virtual: {
+            oneDay: 12 * 60 * 60 * 1000
+          }
+        }));
+        let st = Date.now();
+        let time = us.moment().add(500, 'milliseconds').valueOf();
+        us.setTimeoutAt(() => {
+          let cost = Date.now() - st;
+          (cost > 200 && cost < 300).should.be.ok();
+          done();
+        }, time);
+      });
+
+      it('real time', (done) => {
+        const us = new Calendar(Object.assign({}, config, {
+          timezoneName: 'America/New_York',
+          virtual: {
+            oneDay: 12 * 60 * 60 * 1000
+          }
+        }));
+        us.setTimeout(() => {
+          let st = Date.now();
+          us.setTimeoutAt(() => {
+            let cost = Date.now() - st;
+            (cost > 100 && cost < 150).should.be.ok();
+            done();
+          }, st + 500);
+        }, 500);
       });
     });
   });
