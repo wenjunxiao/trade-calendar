@@ -1,6 +1,6 @@
 {
   "name": "trade-calendar",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "calendar for stock trade",
   "main": "index.js",
   "scripts": {
